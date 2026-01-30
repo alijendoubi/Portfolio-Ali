@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+@theme {
+  --color-void-black: #0a0a0a;
+  --color-dark-navy: #0a192f;
+  --color-slate: #8892b0;
+  --color-light-slate: #a8b2d1;
+  --color-neon-blue: #00f3ff;
+  --color-neon-purple: #bd00ff;
+  --color-accent: #00f3ff;
+  --font-sans: Inter, sans-serif;
+}
+
+@layer base {
+  * {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-void-black);
+    color: var(--color-light-slate);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: white;
+    font-weight: 700;
+  }
+
+  section {
+    scroll-margin-top: 80px;
+  }
+}
+
+::selection {
+  background-color: var(--color-neon-blue);
+  color: black;
+}
+
+/* Smooth reveal animation classes */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
