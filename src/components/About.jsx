@@ -1,18 +1,20 @@
 import { useScrollReveal } from '../hooks/useScrollReveal';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const technologies = [
-    { name: 'TypeScript', category: 'Language' },
-    { name: 'JavaScript', category: 'Language' },
-    { name: 'React', category: 'Framework' },
-    { name: 'Next.js', category: 'Framework' },
-    { name: 'Node.js', category: 'Backend' },
-    { name: 'Tailwind CSS', category: 'Styling' },
-    { name: 'Three.js', category: 'Graphics' },
-    { name: 'PHP', category: 'Backend' },
+    { name: 'TypeScript', category: 'language' },
+    { name: 'JavaScript', category: 'language' },
+    { name: 'React', category: 'framework' },
+    { name: 'Next.js', category: 'framework' },
+    { name: 'Node.js', category: 'backend' },
+    { name: 'Tailwind CSS', category: 'styling' },
+    { name: 'Three.js', category: 'graphics' },
+    { name: 'PHP', category: 'backend' },
 ];
 
 const About = () => {
     const [ref, isVisible] = useScrollReveal();
+    const { t } = useLanguage();
 
     return (
         <section id="about" className="py-24 px-6 bg-void-black">
@@ -22,35 +24,35 @@ const About = () => {
                     className={`text-3xl md:text-4xl font-bold mb-12 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
                         }`}
                 >
-                    About <span className="text-accent">Me</span>
+                    {t('about.title')} <span className="text-accent">{t('about.titleAccent')}</span>
                 </h2>
 
                 <div className="space-y-6 text-slate leading-relaxed mb-12">
                     <p>
-                        I'm a business student and full-stack developer based in <span className="text-white font-medium">Italy</span>,
-                        passionate about creating digital solutions that bridge technology and business strategy.
+                        {t('about.paragraph1')}
+                        <span className="text-white font-medium">{t('about.paragraph1Highlight')}</span>
+                        {t('about.paragraph1End')}
                     </p>
 
                     <p>
-                        My journey into programming started early — while my classmates had game consoles, I had a computer
-                        and a coding book. That curiosity led me to explore everything from game development to modern web applications.
+                        {t('about.paragraph2')}
                     </p>
 
                     <p>
-                        Today, I specialize in building <span className="text-white font-medium">SaaS platforms</span>,
-                        <span className="text-white font-medium"> IoT solutions</span>, and
-                        <span className="text-white font-medium"> modern web applications</span>. I love the intersection
-                        of design and development, where great user experience meets clean, scalable code.
+                        {t('about.paragraph3Start')}
+                        <span className="text-white font-medium">{t('about.paragraph3Saas')}</span>,{' '}
+                        <span className="text-white font-medium">{t('about.paragraph3Iot')}</span>, {t('about.paragraph3Web').toLowerCase() === t('about.paragraph3Web') ? '' : 'and '}
+                        <span className="text-white font-medium">{t('about.paragraph3Web')}</span>
+                        {t('about.paragraph3End')}
                     </p>
 
                     <p>
-                        When I'm not coding, you'll find me studying business strategy, exploring new technologies,
-                        or working on side projects that solve real-world problems.
+                        {t('about.paragraph4')}
                     </p>
                 </div>
 
                 <div>
-                    <h3 className="text-xl font-bold mb-6 text-white">Technologies I work with</h3>
+                    <h3 className="text-xl font-bold mb-6 text-white">{t('about.techTitle')}</h3>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         {technologies.map((tech, index) => (
                             <div
@@ -60,7 +62,7 @@ const About = () => {
                                 <h4 className="text-white font-medium group-hover:text-accent transition-colors">
                                     {tech.name}
                                 </h4>
-                                <p className="text-xs text-slate mt-1">{tech.category}</p>
+                                <p className="text-xs text-slate mt-1">{t(`about.techCategories.${tech.category}`)}</p>
                             </div>
                         ))}
                     </div>

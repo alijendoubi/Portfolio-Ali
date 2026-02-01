@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
+    const { language, toggleLanguage, t } = useLanguage();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -45,13 +47,25 @@ const Navbar = () => {
                                 onClick={(e) => scrollToSection(e, section)}
                                 className="text-slate hover:text-accent transition-colors capitalize text-sm font-medium"
                             >
-                                {section}
+                                {t(`nav.${section}`)}
                             </a>
                         ))}
                     </div>
 
-                    {/* Social Links */}
+                    {/* Social Links & Language Toggle */}
                     <div className="flex items-center gap-4">
+                        {/* Language Toggle */}
+                        <button
+                            onClick={toggleLanguage}
+                            className="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate/20 text-slate hover:text-accent hover:border-accent/50 transition-all group"
+                            aria-label="Toggle Language"
+                        >
+                            <span className="text-sm font-medium">{language.toUpperCase()}</span>
+                            <span className="text-lg transition-transform group-hover:scale-110">
+                                {language === 'en' ? '🇬🇧' : '🇮🇹'}
+                            </span>
+                        </button>
+
                         <a
                             href="https://github.com/alijendoubi"
                             target="_blank"

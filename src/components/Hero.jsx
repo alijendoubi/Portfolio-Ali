@@ -1,7 +1,10 @@
 import { motion } from 'framer-motion';
+import { useLanguage } from '../contexts/LanguageContext';
 import Background3D from './Background3D';
 
 const Hero = () => {
+    const { t } = useLanguage();
+
     const scrollToProjects = (e) => {
         e.preventDefault();
         const projectsSection = document.getElementById('projects');
@@ -26,7 +29,7 @@ const Hero = () => {
                     transition={{ delay: 0.2 }}
                     className="text-accent tracking-widest text-sm md:text-base font-semibold mb-4 uppercase"
                 >
-                    Hi, my name is
+                    {t('hero.greeting')}
                 </motion.p>
 
                 <motion.h1
@@ -35,7 +38,7 @@ const Hero = () => {
                     transition={{ delay: 0.3 }}
                     className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-4"
                 >
-                    Ali Jendoubi
+                    {t('hero.name')}
                 </motion.h1>
 
                 <motion.h2
@@ -44,7 +47,7 @@ const Hero = () => {
                     transition={{ delay: 0.4 }}
                     className="text-3xl md:text-5xl lg:text-6xl font-bold text-slate mb-6"
                 >
-                    I build things for the web.
+                    {t('hero.tagline')}
                 </motion.h2>
 
                 <motion.p
@@ -53,8 +56,7 @@ const Hero = () => {
                     transition={{ delay: 0.5 }}
                     className="text-slate max-w-2xl text-base md:text-lg leading-relaxed mb-8 mx-auto"
                 >
-                    I'm a business student and full-stack developer based in Italy, specializing in building
-                    exceptional digital experiences. Currently focused on creating accessible, scalable SaaS products.
+                    {t('hero.description')}
                 </motion.p>
 
                 <motion.div
@@ -68,13 +70,13 @@ const Hero = () => {
                         onClick={scrollToProjects}
                         className="px-8 py-3 rounded-lg border-2 border-accent text-accent font-semibold hover:bg-accent/10 transition-all duration-300 hover:scale-105"
                     >
-                        View My Work
+                        {t('hero.viewWork')}
                     </a>
                     <a
                         href="#contact"
                         className="px-8 py-3 rounded-lg bg-accent/10 border-2 border-transparent text-accent font-semibold hover:border-accent transition-all duration-300"
                     >
-                        Get In Touch
+                        {t('hero.getInTouch')}
                     </a>
                 </motion.div>
             </motion.div>

@@ -1,5 +1,6 @@
 import { projects } from '../data/projects';
 import { useScrollReveal } from '../hooks/useScrollReveal';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const ProjectCard = ({ project, featured = false }) => {
     const [ref, isVisible] = useScrollReveal();
@@ -77,8 +78,18 @@ const ProjectCard = ({ project, featured = false }) => {
 
 const Projects = () => {
     const [ref, isVisible] = useScrollReveal();
-    const featuredProjects = projects.filter(p => p.featured);
-    const otherProjects = projects.filter(p => !p.featured);
+    const { t, language } = useLanguage();
+
+    // Get translated projects
+    const translatedProjects = t('projects.items');
+    const projectsData = projects.map((project, index) => ({
+        ...project,
+        title: translatedProjects[index]?.title || project.title,
+        description: translatedProjects[index]?.description || project.description
+    }));
+
+    const featuredProjects = projectsData.filter(p => p.featured);
+    const otherProjects = projectsData.filter(p => !p.featured);
 
     return (
         <section id="projects" className="py-24 px-6 bg-void-black/50 relative">
@@ -88,10 +99,13 @@ const Projects = () => {
                     className={`text-3xl md:text-4xl font-bold mb-4 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
                         }`}
                 >
-                    Featured <span className="text-accent">Projects</span>
+                    {t('projects.title')} <span className="text-accent">{t('projects.titleAccent')}</span>
                 </h2>
                 <p className="text-slate mb-12 max-w-2xl">
-                    A selection of projects showcasing my work in full-stack development, SaaS platforms, and modern web applications.
+                    {language === 'en'
+                        ? 'A selection of projects showcasing my work in full-stack development, SaaS platforms, and modern web applications.'
+                        : 'Una selezione di progetti che mostrano il mio lavoro nello sviluppo full-stack, piattaforme SaaS e applicazioni web moderne.'
+                    }
                 </p>
 
                 {/* Featured Projects */}
@@ -105,7 +119,7 @@ const Projects = () => {
                 {otherProjects.length > 0 && (
                     <>
                         <h3 className="text-2xl font-bold mb-8 text-white">
-                            Other <span className="text-accent">Projects</span>
+                            {language === 'en' ? 'Other' : 'Altri'} <span className="text-accent">{language === 'en' ? 'Projects' : 'Progetti'}</span>
                         </h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {otherProjects.map((project) => (

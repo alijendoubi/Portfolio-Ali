@@ -1,24 +1,11 @@
 import { useScrollReveal } from '../hooks/useScrollReveal';
-
-const experiences = [
-    {
-        company: 'Freelance',
-        role: 'Full-Stack Developer',
-        period: '2022 — Present',
-        description: 'Building modern web applications and SaaS platforms for clients across Europe. Specializing in TypeScript, React, Next.js, and cloud infrastructure.',
-        current: true
-    },
-    {
-        company: 'University of Messina',
-        role: 'Business Student',
-        period: '2020 — Present',
-        description: 'Studying Business Administration with a focus on digital transformation and technology management. Bridging the gap between business strategy and technical execution.',
-        current: true
-    }
-];
+import { useLanguage } from '../contexts/LanguageContext';
 
 const Experience = () => {
     const [ref, isVisible] = useScrollReveal();
+    const { t } = useLanguage();
+
+    const experiences = t('experience.experiences');
 
     return (
         <section id="experience" className="py-24 px-6 bg-void-black">
@@ -28,7 +15,7 @@ const Experience = () => {
                     className={`text-3xl md:text-4xl font-bold mb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
                         }`}
                 >
-                    Experience & <span className="text-accent">Education</span>
+                    {t('experience.title')} <span className="text-accent">{t('experience.titleAccent')}</span>
                 </h2>
 
                 <div className="space-y-12">
@@ -53,9 +40,9 @@ const Experience = () => {
                                         <span className="text-accent font-medium">{exp.company}</span>
                                         <span className="text-slate">•</span>
                                         <span className="text-slate">{exp.period}</span>
-                                        {exp.current && (
+                                        {index < 2 && (
                                             <span className="px-2 py-0.5 text-xs rounded-full bg-accent/10 text-accent border border-accent/20">
-                                                Current
+                                                {t('experience.current')}
                                             </span>
                                         )}
                                     </div>

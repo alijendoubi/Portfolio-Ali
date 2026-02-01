@@ -1,7 +1,9 @@
 import { useScrollReveal } from '../hooks/useScrollReveal';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const Contact = () => {
     const [ref, isVisible] = useScrollReveal();
+    const { t } = useLanguage();
 
     return (
         <section id="contact" className="py-24 px-6 bg-void-black">
@@ -11,12 +13,11 @@ const Contact = () => {
                     className={`text-3xl md:text-4xl font-bold mb-6 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
                         }`}
                 >
-                    Get In <span className="text-accent">Touch</span>
+                    {t('contact.title')} <span className="text-accent">{t('contact.titleAccent')}</span>
                 </h2>
 
                 <p className="text-slate text-lg mb-10 leading-relaxed">
-                    I'm always open to new opportunities, collaborations, or just a friendly chat.
-                    Whether you have a project in mind or want to connect, feel free to reach out!
+                    {t('contact.description')}
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -24,7 +25,7 @@ const Contact = () => {
                         href="mailto:flo.bit.dev@gmail.com"
                         className="px-8 py-3 rounded-lg border-2 border-accent text-accent font-semibold hover:bg-accent/10 transition-all duration-300 hover:scale-105"
                     >
-                        Say Hello
+                        {t('contact.sayHello')}
                     </a>
 
                     <div className="flex gap-4">
@@ -55,7 +56,7 @@ const Contact = () => {
 
                 <footer className="mt-20 pt-8 border-t border-slate/10">
                     <p className="text-slate/50 text-sm">
-                        Designed & Built by Ali Jendoubi
+                        {t('contact.footer')}
                     </p>
                 </footer>
             </div>
