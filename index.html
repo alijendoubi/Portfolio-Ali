@@ -15,32 +15,35 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root{--bg:#090b10;--panel:#131622;--panel-2:#171a28;--text:#f5f7fb;--muted:#a8afc2;--line:rgba(255,255,255,.1);--accent:#d5ff4d;--accent-2:#77d8ff;--max:1160px;--r:26px;--shadow:0 24px 70px rgba(0,0,0,.28)}
+    :root{--bg:#090b10;--panel:#131622;--panel-2:#171a28;--text:#f5f7fb;--muted:#a8afc2;--line:rgba(255,255,255,.1);--accent:#d5ff4d;--accent-2:#77d8ff;--max:1160px;--r:26px;--shadow:0 24px 70px rgba(0,0,0,.28);--tilt-x:0deg;--tilt-y:0deg;--glow-x:50%;--glow-y:50%}
     *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:"Manrope",sans-serif;color:var(--text);background:radial-gradient(circle at top left,rgba(119,216,255,.12),transparent 28%),radial-gradient(circle at 85% 10%,rgba(213,255,77,.1),transparent 20%),linear-gradient(180deg,#08090d,#0d1018 55%,#090a10)}
     body::before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(circle at center,black 52%,transparent 100%);opacity:.45}
     a{color:inherit}.shell{width:min(100% - 32px,var(--max));margin:0 auto}.skip{position:absolute;left:16px;top:-44px;background:var(--accent);color:#0b0c11;padding:10px 14px;border-radius:999px;text-decoration:none;font-weight:800}.skip:focus{top:16px}
     .cursor-dot,.cursor-ring{display:none}
-    .header{position:sticky;top:0;z-index:20;background:rgba(9,11,16,.78);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)} .header .shell{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:18px 0}
-    .brand{display:flex;align-items:center;gap:12px;text-decoration:none}.brand-mark{width:52px;height:52px;border-radius:16px;display:block;object-fit:cover;border:1px solid rgba(255,255,255,.08);box-shadow:0 10px 24px rgba(0,0,0,.22)}.brand-copy strong,.brand-copy span{display:block}.brand-copy span{font-size:.76rem;color:var(--muted)}
-    .nav-toggle{display:none;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--text);border-radius:14px;padding:10px 14px;font:inherit}.nav{display:flex;align-items:center;gap:18px}.nav a{text-decoration:none;color:var(--muted);font-size:.92rem}.nav a:hover,.nav a:focus-visible{color:var(--text)}
-    .btn,.btn-alt{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 20px;border-radius:999px;text-decoration:none;font-weight:800;transition:transform .2s ease}.btn:hover,.btn-alt:hover,.btn:focus-visible,.btn-alt:focus-visible{transform:translateY(-2px)} .btn{background:var(--accent);color:#0b0c11}.btn-alt{background:rgba(255,255,255,.03);border:1px solid var(--line)}
-    main{padding-bottom:32px}.hero{padding:80px 0 40px}.hero-card,.card,.timeline,.contact{border:1px solid var(--line);background:rgba(19,22,34,.82);border-radius:calc(var(--r) + 4px);box-shadow:var(--shadow);backdrop-filter:blur(12px)}
-    .hero-card{padding:40px;overflow:hidden;position:relative;background:radial-gradient(circle at top right,rgba(119,216,255,.15),transparent 28%),linear-gradient(155deg,rgba(19,22,34,.94),rgba(10,11,16,.94))}.hero-card::after{content:"";position:absolute;right:-120px;bottom:-150px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(213,255,77,.13),transparent 65%)}
-    .eyebrow,.tag{display:inline-block;text-transform:uppercase;letter-spacing:.15em;font-size:.72rem;font-weight:800}.eyebrow{padding:8px 14px;border-radius:999px;background:rgba(213,255,77,.11);border:1px solid rgba(213,255,77,.18);color:var(--accent)} .tag{color:var(--accent);margin-bottom:10px}
+    .header{position:sticky;top:0;z-index:20;background:rgba(9,11,16,.72);backdrop-filter:blur(18px);border-bottom:1px solid var(--line);transition:background .3s ease,border-color .3s ease,box-shadow .3s ease} .header.scrolled{background:rgba(9,11,16,.88);box-shadow:0 12px 40px rgba(0,0,0,.18)} .header .shell{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:18px 0}
+    .brand{display:flex;align-items:center;gap:12px;text-decoration:none}.brand-mark{width:52px;height:52px;border-radius:16px;display:block;object-fit:cover;border:1px solid rgba(255,255,255,.08);box-shadow:0 10px 24px rgba(0,0,0,.22);transition:transform .35s ease,box-shadow .35s ease}.brand:hover .brand-mark,.brand:focus-visible .brand-mark{transform:rotate(-4deg) scale(1.04);box-shadow:0 16px 34px rgba(119,216,255,.18)}.brand-copy strong,.brand-copy span{display:block}.brand-copy strong{transition:color .25s ease}.brand:hover .brand-copy strong,.brand:focus-visible .brand-copy strong{color:var(--accent)}.brand-copy span{font-size:.76rem;color:var(--muted)}
+    .nav-toggle{display:none;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--text);border-radius:14px;padding:10px 14px;font:inherit}.nav{display:flex;align-items:center;gap:18px}.nav a{text-decoration:none;color:var(--muted);font-size:.92rem;position:relative;transition:color .25s ease,transform .25s ease}.nav a::after{content:"";position:absolute;left:0;bottom:-8px;width:100%;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent-2));transform:scaleX(0);transform-origin:left;transition:transform .25s ease}.nav a:hover,.nav a:focus-visible{color:var(--text);transform:translateY(-1px)}.nav a:hover::after,.nav a:focus-visible::after{transform:scaleX(1)}
+    .btn,.btn-alt{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 20px;border-radius:999px;text-decoration:none;font-weight:800;transition:transform .28s ease,box-shadow .28s ease,border-color .28s ease,background .28s ease,color .28s ease;position:relative;overflow:hidden}.btn::before,.btn-alt::before{content:"";position:absolute;inset:-1px auto -1px -120%;width:55%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.34),transparent);transform:skewX(-22deg);transition:left .55s ease;pointer-events:none}.btn:hover::before,.btn-alt:hover::before,.btn:focus-visible::before,.btn-alt:focus-visible::before{left:130%}.btn:hover,.btn-alt:hover,.btn:focus-visible,.btn-alt:focus-visible{transform:translateY(-3px)} .btn{background:var(--accent);color:#0b0c11;box-shadow:0 16px 38px rgba(213,255,77,.17)}.btn:hover,.btn:focus-visible{box-shadow:0 22px 46px rgba(213,255,77,.24)}.btn-alt{background:rgba(255,255,255,.03);border:1px solid var(--line)}.btn-alt:hover,.btn-alt:focus-visible{border-color:rgba(119,216,255,.4);background:rgba(119,216,255,.08)}
+    main{padding-bottom:32px}.hero{padding:80px 0 40px}.hero-card,.card,.timeline,.contact{border:1px solid var(--line);background:rgba(19,22,34,.82);border-radius:calc(var(--r) + 4px);box-shadow:var(--shadow);backdrop-filter:blur(12px);transition:transform .35s ease,border-color .35s ease,box-shadow .35s ease,background .35s ease}
+    .hero-card{padding:40px;overflow:hidden;position:relative;background:radial-gradient(circle at top right,rgba(119,216,255,.15),transparent 28%),linear-gradient(155deg,rgba(19,22,34,.94),rgba(10,11,16,.94));animation:heroFloat 7s ease-in-out infinite}.hero-card::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at var(--glow-x) var(--glow-y),rgba(119,216,255,.14),transparent 24%);opacity:.8;pointer-events:none;transition:opacity .25s ease}.hero-card::after{content:"";position:absolute;right:-120px;bottom:-150px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(213,255,77,.13),transparent 65%)}
+    .eyebrow,.tag{display:inline-block;text-transform:uppercase;letter-spacing:.15em;font-size:.72rem;font-weight:800}.eyebrow{padding:8px 14px;border-radius:999px;background:rgba(213,255,77,.11);border:1px solid rgba(213,255,77,.18);color:var(--accent);animation:pulseGlow 3.2s ease-in-out infinite} .tag{color:var(--accent);margin-bottom:10px}
     .hero-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(300px,.8fr);gap:30px;margin-top:22px;position:relative;z-index:1}
     h1,h2,h3{margin:0;font-family:"Syne",sans-serif;line-height:.98;letter-spacing:-.04em} h1{font-size:clamp(3.1rem,8vw,6.8rem);max-width:10ch;margin-bottom:20px} h2{font-size:clamp(2rem,4vw,3.3rem)} h3{font-size:1.35rem;margin-bottom:12px}
-    .lead,.section-head p,.card p,.project p,.timeline p,.contact p,.quote-byline{color:var(--muted);line-height:1.75}.lead{max-width:58ch;font-size:1.07rem;margin:0 0 28px}.actions,.pills,.chips{display:flex;flex-wrap:wrap;gap:12px}.pills{margin-top:26px}.pill,.chip{padding:9px 12px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.03);font-size:.84rem}
-    .hero-side{padding:24px;display:grid;gap:14px}.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.stat{padding:18px;border-radius:20px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05)}.stat strong{display:block;font:800 1.95rem "Syne",sans-serif;margin-bottom:8px}.stat span{color:var(--muted);font-size:.92rem;line-height:1.55}
+    .lead,.section-head p,.card p,.project p,.timeline p,.contact p,.quote-byline{color:var(--muted);line-height:1.75}.lead{max-width:58ch;font-size:1.07rem;margin:0 0 28px}.actions,.pills,.chips{display:flex;flex-wrap:wrap;gap:12px}.pills{margin-top:26px}.pill,.chip{padding:9px 12px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.03);font-size:.84rem;transition:transform .25s ease,border-color .25s ease,background .25s ease}.pill:hover,.chip:hover{transform:translateY(-2px);border-color:rgba(213,255,77,.35);background:rgba(213,255,77,.08)}
+    .hero-side{padding:24px;display:grid;gap:14px}.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.stat{padding:18px;border-radius:20px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05);transition:transform .3s ease,border-color .3s ease,background .3s ease}.stat:hover{transform:translateY(-4px);border-color:rgba(119,216,255,.28);background:rgba(119,216,255,.06)}.stat strong{display:block;font:800 1.95rem "Syne",sans-serif;margin-bottom:8px}.stat span{color:var(--muted);font-size:.92rem;line-height:1.55}
     .section{padding:40px 0}.section-head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:26px}.section-head p{max-width:58ch;margin:0}.grid-3,.grid-2,.projects,.stack,.quotes{display:grid;gap:18px}.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}.grid-2,.projects{grid-template-columns:repeat(2,minmax(0,1fr))}.stack{grid-template-columns:repeat(4,minmax(0,1fr))}.quotes{grid-template-columns:repeat(3,minmax(0,1fr))}
-    .card{padding:24px}.card ul,.project ul{margin:14px 0 0;padding-left:18px}.card li,.project li{color:var(--muted);line-height:1.68;margin-bottom:8px}
-    .project{position:relative;overflow:hidden}.project::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(213,255,77,.04),transparent 45%,rgba(119,216,255,.05));pointer-events:none}.project>*{position:relative;z-index:1}.project-head{display:flex;justify-content:space-between;gap:12px;align-items:start;margin-bottom:14px}.project-head span{color:var(--accent);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-weight:800}
-    .timeline{padding:24px}.timeline-list{display:grid;gap:18px}.item{display:grid;grid-template-columns:100px minmax(0,1fr);gap:18px;padding-top:18px;border-top:1px solid var(--line)}.item:first-child{padding-top:0;border-top:0}.step{color:var(--accent);font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;font-weight:800}
-    blockquote{margin:0 0 18px;line-height:1.8}.contact{padding:28px;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(280px,.9fr);gap:20px}.contact-list{display:grid;gap:12px}.contact-item{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 18px;border-radius:20px;border:1px solid var(--line);background:rgba(255,255,255,.03);text-decoration:none}.contact-item span{display:block}.contact-item span:first-child{color:var(--muted);font-size:.8rem;text-transform:uppercase;letter-spacing:.14em;font-weight:800}.contact-item strong{display:block;font-size:.96rem}
+    .card{padding:24px;position:relative;overflow:hidden}.card::before,.project::after,.contact::before,.timeline::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at var(--glow-x) var(--glow-y),rgba(213,255,77,.12),transparent 28%);opacity:0;pointer-events:none;transition:opacity .28s ease}.card:hover,.project:hover,.timeline:hover,.contact:hover{border-color:rgba(119,216,255,.22);box-shadow:0 28px 80px rgba(0,0,0,.32),0 0 0 1px rgba(119,216,255,.06) inset}.card:hover::before,.project:hover::after,.timeline:hover::before,.contact:hover::before{opacity:1}.card ul,.project ul{margin:14px 0 0;padding-left:18px}.card li,.project li{color:var(--muted);line-height:1.68;margin-bottom:8px}
+    .project{position:relative;overflow:hidden;transform:perspective(1200px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));transform-style:preserve-3d}.project::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(213,255,77,.04),transparent 45%,rgba(119,216,255,.05));pointer-events:none}.project>*{position:relative;z-index:1}.project-head{display:flex;justify-content:space-between;gap:12px;align-items:start;margin-bottom:14px}.project-head span{color:var(--accent);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-weight:800}
+    .timeline{padding:24px}.timeline-list{display:grid;gap:18px}.item{display:grid;grid-template-columns:100px minmax(0,1fr);gap:18px;padding-top:18px;border-top:1px solid var(--line);transition:transform .28s ease,border-color .28s ease}.timeline:hover .item{border-color:rgba(255,255,255,.14)}.item:hover{transform:translateX(6px)}.item:first-child{padding-top:0;border-top:0}.step{color:var(--accent);font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;font-weight:800}
+    blockquote{margin:0 0 18px;line-height:1.8}.contact{padding:28px;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(280px,.9fr);gap:20px;position:relative}.contact-list{display:grid;gap:12px}.contact-item{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 18px;border-radius:20px;border:1px solid var(--line);background:rgba(255,255,255,.03);text-decoration:none;transition:transform .28s ease,border-color .28s ease,background .28s ease}.contact-item:hover,.contact-item:focus-visible{transform:translateX(6px);border-color:rgba(213,255,77,.32);background:rgba(213,255,77,.06)}.contact-item span{display:block}.contact-item span:first-child{color:var(--muted);font-size:.8rem;text-transform:uppercase;letter-spacing:.14em;font-weight:800}.contact-item strong{display:block;font-size:.96rem}
     footer{padding:24px 0 40px;color:var(--muted);font-size:.92rem}.footer-row{display:flex;justify-content:space-between;gap:16px;align-items:center;border-top:1px solid var(--line);padding-top:24px}
-    .reveal{opacity:0;transform:translateY(18px);transition:opacity .65s ease,transform .65s ease}.reveal.visible{opacity:1;transform:none}
-    @media (hover:hover) and (pointer:fine){body.cursor-enabled{cursor:none}body.cursor-enabled a,body.cursor-enabled button{cursor:none}.cursor-dot,.cursor-ring{display:block;position:fixed;left:0;top:0;pointer-events:none;border-radius:50%;z-index:9999;opacity:0;transform:translate(-50%,-50%);transition:width .2s ease,height .2s ease,opacity .2s ease,background-color .2s ease,border-color .2s ease}.cursor-dot{width:10px;height:10px;background:var(--accent);box-shadow:0 0 20px rgba(213,255,77,.35)}.cursor-ring{width:36px;height:36px;border:1px solid rgba(213,255,77,.45);z-index:9998}.cursor-dot.active{width:14px;height:14px;background:#fff}.cursor-ring.active{width:58px;height:58px;border-color:rgba(119,216,255,.75)}} 
+    .reveal{opacity:0;transform:translateY(18px) scale(.985);transition:opacity .75s ease,transform .75s cubic-bezier(.22,1,.36,1)}.reveal.visible{opacity:1;transform:none}
+    .stagger-1{transition-delay:.06s}.stagger-2{transition-delay:.12s}.stagger-3{transition-delay:.18s}.stagger-4{transition-delay:.24s}.stagger-5{transition-delay:.3s}.stagger-6{transition-delay:.36s}
+    @keyframes heroFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+    @keyframes pulseGlow{0%,100%{box-shadow:0 0 0 0 rgba(213,255,77,.0)}50%{box-shadow:0 0 0 10px rgba(213,255,77,.05)}}
+    @media (hover:hover) and (pointer:fine){body.cursor-enabled{cursor:none}body.cursor-enabled a,body.cursor-enabled button{cursor:none}.cursor-dot,.cursor-ring{display:block;position:fixed;left:0;top:0;pointer-events:none;border-radius:50%;z-index:9999;opacity:0;transform:translate(-50%,-50%);transition:width .2s ease,height .2s ease,opacity .2s ease,background-color .2s ease,border-color .2s ease,box-shadow .2s ease}.cursor-dot{width:10px;height:10px;background:var(--accent);box-shadow:0 0 20px rgba(213,255,77,.35)}.cursor-ring{width:36px;height:36px;border:1px solid rgba(213,255,77,.45);z-index:9998}.cursor-dot.active{width:14px;height:14px;background:#fff;box-shadow:0 0 24px rgba(255,255,255,.22)}.cursor-ring.active{width:58px;height:58px;border-color:rgba(119,216,255,.75)}} 
     @media (max-width:980px){.hero-grid,.grid-3,.grid-2,.projects,.stack,.quotes,.contact{grid-template-columns:1fr}.nav-toggle{display:inline-flex}.nav{position:absolute;left:16px;right:16px;top:calc(100% + 10px);display:none;flex-direction:column;align-items:stretch;padding:16px;border:1px solid var(--line);border-radius:22px;background:rgba(9,11,16,.96);box-shadow:var(--shadow)}.nav.open{display:flex}.nav a,.nav .btn-alt{width:100%}.section-head,.footer-row{flex-direction:column;align-items:start}.item{grid-template-columns:1fr}}
-    @media (max-width:640px){.shell{width:min(100% - 20px,var(--max))}.hero{padding-top:42px}.hero-card,.card,.timeline,.contact{padding:22px}.stats{grid-template-columns:1fr}h1{font-size:clamp(2.8rem,14vw,4.1rem)}.contact-item{flex-direction:column;align-items:start}}
+    @media (max-width:640px){.shell{width:min(100% - 20px,var(--max))}.hero{padding-top:42px}.hero-card,.card,.timeline,.contact{padding:22px;animation:none}.stats{grid-template-columns:1fr}h1{font-size:clamp(2.8rem,14vw,4.1rem)}.contact-item{flex-direction:column;align-items:start}}
     @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}body.cursor-enabled{cursor:auto}.cursor-dot,.cursor-ring{display:none!important}}
   </style>
 </head>
@@ -110,15 +113,15 @@
           <p>My work sits at the intersection of product engineering, automation, and local-market problem solving. I’m most useful when a business needs someone who can understand the workflow, architect the system, and ship the hard parts.</p>
         </div>
         <div class="grid-3">
-          <article class="card reveal">
+          <article class="card reveal stagger-1">
             <h3>Full-stack execution</h3>
             <p>Frontend, backend, auth, databases, APIs, deployment, and operations. I build complete systems instead of isolated screens.</p>
           </article>
-          <article class="card reveal">
+          <article class="card reveal stagger-2">
             <h3>Applied AI</h3>
             <p>I use OpenAI, LangChain, pgvector, and automation tooling to create features with measurable business value, not demo-only AI.</p>
           </article>
-          <article class="card reveal">
+          <article class="card reveal stagger-3">
             <h3>Business context</h3>
             <p>I’ve worked with real operating teams, so I think about reliability, onboarding, reporting, and stakeholder trust from the start.</p>
           </article>
@@ -135,7 +138,7 @@
           <p>These projects cover automation ecosystems, healthcare SaaS, real-time platforms, and sector-specific systems built around daily use.</p>
         </div>
         <div class="projects">
-          <article class="card project reveal">
+          <article class="card project reveal stagger-1">
             <div class="project-head"><h3>AutoFlowOS</h3><span>AI Automation</span></div>
             <p>An automation ecosystem connecting GoHighLevel, Google Ads, Meta Ads, PostgreSQL, OpenAI, and Slack for lead handling, reporting, personalization, and quality control.</p>
             <div class="chips"><span class="chip">n8n</span><span class="chip">Python</span><span class="chip">OpenAI API</span><span class="chip">LangChain</span></div>
@@ -144,7 +147,7 @@
               <li>Included retry logic, failure alerts, and a Slack-queryable AI agent with persistent memory.</li>
             </ul>
           </article>
-          <article class="card project reveal">
+          <article class="card project reveal stagger-2">
             <div class="project-head"><h3>Auralis</h3><span>Healthcare SaaS</span></div>
             <p>A therapist workflow platform for appointment scheduling, digital intake, billing, patient notes, and role-based access.</p>
             <div class="chips"><span class="chip">Full-stack</span><span class="chip">JWT Auth</span><span class="chip">Analytics</span><span class="chip">Mobile-first</span></div>
@@ -153,7 +156,7 @@
               <li>Designed for therapists who need reliable workflows on both desktop and phone.</li>
             </ul>
           </article>
-          <article class="card project reveal">
+          <article class="card project reveal stagger-3">
             <div class="project-head"><h3>Agritech-Sicily</h3><span>IoT Platform</span></div>
             <p>A real-time agriculture platform using field sensor data for irrigation visibility, live alerts, and AI-assisted recommendations.</p>
             <div class="chips"><span class="chip">WebSocket</span><span class="chip">IoT</span><span class="chip">Dashboards</span><span class="chip">Responsive UI</span></div>
@@ -162,7 +165,7 @@
               <li>Built around local climate conditions and real usage in field operations.</li>
             </ul>
           </article>
-          <article class="card project reveal">
+          <article class="card project reveal stagger-4">
             <div class="project-head"><h3>Invict Academy</h3><span>EdTech + AI</span></div>
             <p>A student platform for university matching, application tracking, visa guidance, housing, and multilingual support.</p>
             <div class="chips"><span class="chip">AI Assistant</span><span class="chip">SaaS</span><span class="chip">Arabic</span><span class="chip">Italian</span></div>
@@ -171,7 +174,7 @@
               <li>Focused on access to affordable universities across Southern Italy.</li>
             </ul>
           </article>
-          <article class="card project reveal">
+          <article class="card project reveal stagger-5">
             <div class="project-head"><h3>CRM-1.1</h3><span>Operations CRM</span></div>
             <p>A custom CRM for an Italian energy renovation company managing leads, scheduling, documentation, and client communication.</p>
             <div class="chips"><span class="chip">Custom CRM</span><span class="chip">Multi-role</span><span class="chip">Dashboards</span><span class="chip">Ops Automation</span></div>
@@ -180,7 +183,7 @@
               <li>Handled sector-specific documentation needs around Superbonus and Ecobonus workflows.</li>
             </ul>
           </article>
-          <article class="card project reveal">
+          <article class="card project reveal stagger-6">
             <div class="project-head"><h3>Trading-News</h3><span>Real-time Data</span></div>
             <p>A market intelligence platform combining economic calendar data, live market feeds, and financial news in one interface.</p>
             <div class="chips"><span class="chip">Real-time APIs</span><span class="chip">Normalized Data</span><span class="chip">WebSocket</span><span class="chip">Mobile-ready</span></div>
@@ -202,10 +205,10 @@
           <p>I adapt the stack to the product, but these are the technologies I’ve used most often in production and client work.</p>
         </div>
         <div class="stack">
-          <article class="card reveal"><h3>Frontend</h3><p>React, Next.js, TypeScript, JavaScript, Tailwind CSS, SCSS, Framer Motion, responsive UI architecture.</p></article>
-          <article class="card reveal"><h3>Backend</h3><p>Node.js, Python, FastAPI, Flask, Laravel, PHP, Express, REST APIs, auth flows, and background processing.</p></article>
-          <article class="card reveal"><h3>AI & Automation</h3><p>OpenAI API, LangChain, n8n, Flowise, RAG, pgvector, agent workflows, prompt systems, and semantic retrieval.</p></article>
-          <article class="card reveal"><h3>Data & Delivery</h3><p>PostgreSQL, MySQL, MongoDB, Redis, Docker, CI/CD, Linux deployments, VPS hosting, and analytics dashboards.</p></article>
+          <article class="card reveal stagger-1"><h3>Frontend</h3><p>React, Next.js, TypeScript, JavaScript, Tailwind CSS, SCSS, Framer Motion, responsive UI architecture.</p></article>
+          <article class="card reveal stagger-2"><h3>Backend</h3><p>Node.js, Python, FastAPI, Flask, Laravel, PHP, Express, REST APIs, auth flows, and background processing.</p></article>
+          <article class="card reveal stagger-3"><h3>AI & Automation</h3><p>OpenAI API, LangChain, n8n, Flowise, RAG, pgvector, agent workflows, prompt systems, and semantic retrieval.</p></article>
+          <article class="card reveal stagger-4"><h3>Data & Delivery</h3><p>PostgreSQL, MySQL, MongoDB, Redis, Docker, CI/CD, Linux deployments, VPS hosting, and analytics dashboards.</p></article>
         </div>
       </div>
     </section>
@@ -226,7 +229,7 @@
               <div class="item"><div class="step">03</div><div><h3>Ship usable software</h3><p>I prioritize reliability, clarity, and actual adoption so the delivered system can be used daily without heroics.</p></div></div>
             </div>
           </div>
-          <article class="card reveal">
+          <article class="card reveal stagger-2">
             <h3>What clients usually need from me</h3>
             <ul>
               <li>Custom SaaS products and internal platforms.</li>
@@ -250,9 +253,9 @@
           <p>A few short excerpts adapted from the original portfolio draft, covering delivery, automation, and hands-on collaboration.</p>
         </div>
         <div class="quotes">
-          <article class="card reveal"><blockquote>“Ali built exactly what we needed and improved the thinking behind it. He solved the operational bottlenecks, not just the visible UI.”</blockquote><div class="quote-byline">Marco R. · CEO, Digital Marketing Agency, Italy</div></article>
-          <article class="card reveal"><blockquote>“Working with Ali felt different from working with a contractor. He challenged the weak assumptions and delivered something stronger.”</blockquote><div class="quote-byline">Bassem M. · Co-Founder, PeakPulse Solutions</div></article>
-          <article class="card reveal"><blockquote>“The CRM and automation work finally gave us visibility into performance and removed a lot of manual coordination.”</blockquote><div class="quote-byline">Andrea C. · Marketing Director, eCommerce Group</div></article>
+          <article class="card reveal stagger-1"><blockquote>“Ali built exactly what we needed and improved the thinking behind it. He solved the operational bottlenecks, not just the visible UI.”</blockquote><div class="quote-byline">Marco R. · CEO, Digital Marketing Agency, Italy</div></article>
+          <article class="card reveal stagger-2"><blockquote>“Working with Ali felt different from working with a contractor. He challenged the weak assumptions and delivered something stronger.”</blockquote><div class="quote-byline">Bassem M. · Co-Founder, PeakPulse Solutions</div></article>
+          <article class="card reveal stagger-3"><blockquote>“The CRM and automation work finally gave us visibility into performance and removed a lot of manual coordination.”</blockquote><div class="quote-byline">Andrea C. · Marketing Director, eCommerce Group</div></article>
         </div>
       </div>
     </section>
@@ -303,12 +306,22 @@
     }
   </script>
   <script>
+    const header = document.querySelector(".header");
     const navToggle = document.querySelector(".nav-toggle");
     const siteNav = document.querySelector(".nav");
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
     const cursorDot = document.querySelector(".cursor-dot");
     const cursorRing = document.querySelector(".cursor-ring");
+    const interactiveCards = document.querySelectorAll(".card, .project, .timeline, .contact");
+
+    const syncHeaderState = () => {
+      if (!header) return;
+      header.classList.toggle("scrolled", window.scrollY > 18);
+    };
+
+    syncHeaderState();
+    window.addEventListener("scroll", syncHeaderState, { passive: true });
 
     if (navToggle && siteNav) {
       navToggle.addEventListener("click", () => {
@@ -369,6 +382,30 @@
         element.addEventListener("mouseleave", () => {
           cursorDot.classList.remove("active");
           cursorRing.classList.remove("active");
+        });
+      });
+    }
+
+    if (finePointer.matches && !prefersReducedMotion.matches) {
+      interactiveCards.forEach((card) => {
+        card.addEventListener("mousemove", (event) => {
+          const bounds = card.getBoundingClientRect();
+          const relativeX = event.clientX - bounds.left;
+          const relativeY = event.clientY - bounds.top;
+          const rotateY = ((relativeX / bounds.width) - 0.5) * 8;
+          const rotateX = (0.5 - (relativeY / bounds.height)) * 8;
+
+          card.style.setProperty("--tilt-x", `${rotateX}deg`);
+          card.style.setProperty("--tilt-y", `${rotateY}deg`);
+          card.style.setProperty("--glow-x", `${(relativeX / bounds.width) * 100}%`);
+          card.style.setProperty("--glow-y", `${(relativeY / bounds.height) * 100}%`);
+        });
+
+        card.addEventListener("mouseleave", () => {
+          card.style.setProperty("--tilt-x", "0deg");
+          card.style.setProperty("--tilt-y", "0deg");
+          card.style.setProperty("--glow-x", "50%");
+          card.style.setProperty("--glow-y", "50%");
         });
       });
     }
