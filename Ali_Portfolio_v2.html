@@ -1,0 +1,1949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ali Jendoubi — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital,wght@0,400;1,400&family=Cabinet+Grotesk:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #060608;
+  --surface: #0D0D14;
+  --card: #111119;
+  --white: #F4F2ED;
+  --accent: #C8FF00;
+  --purple: #8B5CF6;
+  --orange: #FF6B35;
+  --blue: #3B82F6;
+  --muted: #52526B;
+  --border: rgba(244,242,237,0.07);
+  --border-strong: rgba(244,242,237,0.15);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'DM Mono', monospace;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* CUSTOM CURSOR */
+.cursor {
+  width: 10px; height: 10px;
+  background: var(--accent);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.1s, width 0.2s, height 0.2s;
+  transform: translate(-50%, -50%);
+}
+
+.cursor-ring {
+  width: 36px; height: 36px;
+  border: 1px solid rgba(200,255,0,0.4);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  transition: transform 0.15s ease, width 0.2s, height 0.2s, border-color 0.2s;
+  transform: translate(-50%, -50%);
+}
+
+/* NOISE OVERLAY */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.4;
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 20px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  backdrop-filter: blur(20px);
+  background: rgba(6,6,8,0.8);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.nav-links {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 11px;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0; right: 0;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transition: transform 0.2s;
+}
+
+.nav-links a:hover { color: var(--white); }
+.nav-links a:hover::after { transform: scaleX(1); }
+
+.nav-cta {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--black);
+  background: var(--accent);
+  padding: 8px 20px;
+  text-decoration: none;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  transition: opacity 0.2s;
+}
+
+.nav-cta:hover { opacity: 0.85; }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  padding: 120px 60px 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg-text {
+  position: absolute;
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(180px, 25vw, 360px);
+  font-weight: 800;
+  color: rgba(244,242,237,0.02);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  pointer-events: none;
+  letter-spacing: -0.05em;
+  user-select: none;
+}
+
+.hero-glow-1 {
+  position: absolute;
+  width: 700px; height: 700px;
+  background: radial-gradient(circle, rgba(139,92,246,0.12) 0%, transparent 65%);
+  top: -200px; right: -150px;
+  pointer-events: none;
+}
+
+.hero-glow-2 {
+  position: absolute;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(200,255,0,0.06) 0%, transparent 65%);
+  bottom: -100px; left: 0;
+  pointer-events: none;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 80px;
+  align-items: end;
+  position: relative; z-index: 2;
+}
+
+.hero-left {}
+
+.hero-available {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid rgba(200,255,0,0.2);
+  background: rgba(200,255,0,0.05);
+  padding: 7px 18px;
+  margin-bottom: 40px;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.hero-available-dot {
+  width: 7px; height: 7px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: blink 2s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(200,255,0,0.4); }
+  50% { opacity: 0.5; box-shadow: 0 0 0 6px rgba(200,255,0,0); }
+}
+
+.hero-name {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(64px, 9vw, 130px);
+  font-weight: 800;
+  line-height: 0.88;
+  letter-spacing: -0.04em;
+  margin-bottom: 40px;
+}
+
+.hero-name .line2 {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent);
+}
+
+.hero-name .line3 {
+  -webkit-text-stroke: 1px rgba(244,242,237,0.3);
+  color: transparent;
+}
+
+.hero-desc {
+  font-size: 14px;
+  color: var(--muted);
+  max-width: 420px;
+  line-height: 1.9;
+  margin-bottom: 48px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.btn-primary {
+  font-family: 'Syne', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: var(--accent);
+  color: var(--black);
+  padding: 14px 32px;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.btn-primary:hover { opacity: 0.85; }
+
+.btn-ghost {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.2s;
+}
+
+.btn-ghost:hover { color: var(--white); }
+
+.hero-right {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 220px;
+}
+
+.hero-stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 16px 20px;
+  background: var(--card);
+  border: 1px solid var(--border);
+}
+
+.hero-stat-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--accent);
+}
+
+.hero-stat-label {
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: right;
+  max-width: 100px;
+  line-height: 1.4;
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 40px;
+  left: 60px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  z-index: 2;
+}
+
+.scroll-track {
+  width: 48px;
+  height: 1px;
+  background: var(--border-strong);
+  position: relative;
+  overflow: hidden;
+}
+
+.scroll-thumb {
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--accent);
+  animation: scrollAnim 2s infinite;
+}
+
+@keyframes scrollAnim {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* MARQUEE */
+.marquee-section {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 20px 0;
+  overflow: hidden;
+  background: var(--surface);
+  position: relative;
+}
+
+.marquee-track {
+  display: flex;
+  gap: 60px;
+  animation: marquee 20s linear infinite;
+  white-space: nowrap;
+  width: max-content;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.marquee-item {
+  font-family: 'Syne', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-shrink: 0;
+}
+
+.marquee-dot {
+  width: 4px; height: 4px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+
+/* SECTION WRAPPER */
+.section-wrap {
+  padding: 120px 60px;
+  position: relative;
+}
+
+.section-wrap.dark { background: var(--surface); }
+.section-wrap.darker { background: var(--black); }
+
+.section-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.eyebrow-line {
+  width: 32px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.eyebrow-text {
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(40px, 6vw, 80px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 0.92;
+  margin-bottom: 80px;
+}
+
+/* STACK SECTION */
+.stack-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+
+.stack-cell {
+  background: var(--card);
+  padding: 36px 28px;
+  transition: background 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+
+.stack-cell::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 0;
+  background: var(--accent);
+  transition: height 0.25s;
+}
+
+.stack-cell:hover { background: rgba(200,255,0,0.04); }
+.stack-cell:hover::before { height: 2px; }
+
+.stack-cell-icon {
+  font-size: 28px;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.stack-cell-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--white);
+}
+
+.stack-cell-items {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.9;
+}
+
+/* CASE STUDIES */
+.cases-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.case-row {
+  background: var(--card);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+
+.case-row:hover { border-color: rgba(200,255,0,0.2); }
+.case-row.active { border-color: rgba(200,255,0,0.4); }
+
+.case-trigger {
+  display: grid;
+  grid-template-columns: 70px 1fr 200px 180px 44px;
+  align-items: center;
+  gap: 24px;
+  padding: 32px 40px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.case-idx {
+  font-family: 'Syne', sans-serif;
+  font-size: 52px;
+  font-weight: 800;
+  color: rgba(244,242,237,0.06);
+  line-height: 1;
+}
+
+.case-info {}
+
+.case-cat {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.case-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.case-year {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: right;
+}
+
+.case-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.tag {
+  font-size: 10px;
+  padding: 3px 9px;
+  border: 1px solid var(--border-strong);
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+
+.case-chevron {
+  width: 32px; height: 32px;
+  border: 1px solid var(--border-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: var(--muted);
+  transition: all 0.3s;
+}
+
+.case-row.active .case-chevron {
+  background: var(--accent);
+  color: var(--black);
+  border-color: var(--accent);
+  transform: rotate(180deg);
+}
+
+.case-panel {
+  display: none;
+  border-top: 1px solid var(--border);
+}
+
+.case-row.active .case-panel { display: block; }
+
+.case-panel-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0;
+}
+
+.case-panel-block {
+  padding: 40px;
+  border-right: 1px solid var(--border);
+}
+
+.case-panel-block:last-child { border-right: none; }
+
+.cpb-label {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cpb-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.cpb-text {
+  font-size: 13px;
+  color: rgba(244,242,237,0.65);
+  line-height: 1.85;
+  margin-bottom: 20px;
+}
+
+.cpb-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.cpb-metric {
+  background: rgba(200,255,0,0.04);
+  border: 1px solid rgba(200,255,0,0.1);
+  padding: 16px;
+}
+
+.cpb-metric-val {
+  font-family: 'Syne', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.cpb-metric-label {
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 6px;
+  letter-spacing: 0.06em;
+}
+
+.cpb-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 20px;
+}
+
+.tech-pill {
+  font-size: 10px;
+  padding: 4px 10px;
+  background: rgba(139,92,246,0.1);
+  border: 1px solid rgba(139,92,246,0.2);
+  color: rgba(139,92,246,0.9);
+  letter-spacing: 0.05em;
+}
+
+/* PIPELINES SECTION */
+.pipelines-section {}
+
+.pipeline-showcase {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-bottom: 32px;
+}
+
+.pipeline-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  position: relative;
+  transition: border-color 0.3s;
+}
+
+.pipeline-card:hover { border-color: rgba(139,92,246,0.4); }
+
+.pipeline-card-header {
+  padding: 24px 28px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.pipeline-card-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.pipeline-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.pipeline-status-dot {
+  width: 6px; height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: blink 2s infinite;
+}
+
+.pipeline-flow {
+  padding: 20px 28px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  min-height: 80px;
+}
+
+.flow-node {
+  background: rgba(139,92,246,0.1);
+  border: 1px solid rgba(139,92,246,0.2);
+  padding: 6px 12px;
+  font-size: 10px;
+  color: rgba(139,92,246,0.9);
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.flow-node.trigger {
+  background: rgba(200,255,0,0.08);
+  border-color: rgba(200,255,0,0.2);
+  color: var(--accent);
+}
+
+.flow-node.ai {
+  background: rgba(255,107,53,0.08);
+  border-color: rgba(255,107,53,0.2);
+  color: rgba(255,107,53,0.9);
+}
+
+.flow-node.output {
+  background: rgba(59,130,246,0.08);
+  border-color: rgba(59,130,246,0.2);
+  color: rgba(59,130,246,0.9);
+}
+
+.flow-arrow {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.pipeline-footer {
+  padding: 14px 28px;
+  background: rgba(0,0,0,0.3);
+  font-size: 11px;
+  color: var(--muted);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pipeline-metric {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.all-pipelines-strip {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 24px 32px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background-color: var(--border);
+}
+
+.strip-item {
+  background: var(--card);
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.strip-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--accent);
+  opacity: 0.5;
+}
+
+.strip-name {
+  font-size: 12px;
+  color: rgba(244,242,237,0.7);
+  line-height: 1.4;
+}
+
+/* TESTIMONIALS */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 0;
+}
+
+.testimonial-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 36px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+
+.testimonial-card:hover { border-color: rgba(200,255,0,0.2); }
+
+.testimonial-card::before {
+  content: '"';
+  position: absolute;
+  top: 20px; right: 24px;
+  font-family: 'Instrument Serif', serif;
+  font-size: 80px;
+  color: rgba(200,255,0,0.06);
+  line-height: 1;
+}
+
+.testimonial-stars {
+  display: flex;
+  gap: 3px;
+  margin-bottom: 20px;
+}
+
+.star {
+  color: var(--accent);
+  font-size: 12px;
+}
+
+.testimonial-text {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 16px;
+  line-height: 1.7;
+  color: rgba(244,242,237,0.85);
+  margin-bottom: 28px;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.author-avatar {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--purple), var(--accent));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--black);
+  flex-shrink: 0;
+}
+
+.author-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.author-role {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* AI SECTION */
+.ai-feature-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  background: var(--border);
+}
+
+.ai-feature {
+  background: var(--card);
+  padding: 48px 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.ai-feature:first-child {
+  grid-column: span 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.ai-feature-num {
+  position: absolute;
+  top: 24px; right: 28px;
+  font-family: 'Syne', sans-serif;
+  font-size: 80px;
+  font-weight: 800;
+  color: rgba(244,242,237,0.03);
+  line-height: 1;
+}
+
+.ai-feature-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  position: relative; z-index: 2;
+}
+
+.ai-feature-text {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.9;
+  position: relative; z-index: 2;
+}
+
+.ai-big-statement {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: clamp(28px, 3.5vw, 44px);
+  line-height: 1.3;
+  color: rgba(244,242,237,0.9);
+}
+
+.ai-big-statement em {
+  color: var(--accent);
+  font-style: normal;
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+}
+
+.ai-tools-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ai-tool {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 20px;
+  background: rgba(0,0,0,0.3);
+  border-left: 2px solid var(--purple);
+}
+
+.ai-tool-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  min-width: 100px;
+}
+
+.ai-tool-desc {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* VISION SECTION */
+.vision-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.vision-quote {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: clamp(32px, 4vw, 52px);
+  line-height: 1.3;
+  position: sticky;
+  top: 120px;
+}
+
+.vision-quote em {
+  color: var(--accent);
+  font-style: normal;
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+}
+
+.vision-points {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.vision-point {
+  padding: 32px 0;
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 20px;
+}
+
+.vp-num {
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: 0.15em;
+  margin-top: 4px;
+}
+
+.vp-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.vp-text {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+/* CONTACT */
+.contact-section {
+  padding: 120px 60px;
+  background: var(--black);
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-glow {
+  position: absolute;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(200,255,0,0.06) 0%, transparent 65%);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.contact-inner {
+  position: relative; z-index: 2;
+  text-align: center;
+}
+
+.contact-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(56px, 9vw, 120px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  margin-bottom: 48px;
+}
+
+.contact-title .italic {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent);
+}
+
+.contact-links {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 60px;
+}
+
+.contact-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  padding: 24px 36px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.contact-link:hover {
+  border-color: var(--accent);
+  background: rgba(200,255,0,0.04);
+}
+
+.contact-link-label {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.contact-link-value {
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.contact-location {
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+
+/* FOOTER */
+footer {
+  padding: 32px 60px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--surface);
+}
+
+.footer-logo {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.footer-copy {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* SCROLL REVEAL */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 1024px) {
+  nav, .hero, .section-wrap, footer, .contact-section { padding-left: 32px; padding-right: 32px; }
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-right { flex-direction: row; flex-wrap: wrap; }
+  .hero-stat-row { flex: 1; min-width: 140px; }
+  .stack-grid { grid-template-columns: repeat(3, 1fr); }
+  .case-trigger { grid-template-columns: 50px 1fr 44px; }
+  .case-year, .case-tags { display: none; }
+  .case-panel-inner { grid-template-columns: 1fr; }
+  .case-panel-block { border-right: none; border-bottom: 1px solid var(--border); }
+  .pipeline-showcase { grid-template-columns: 1fr; }
+  .all-pipelines-strip { grid-template-columns: repeat(2, 1fr); }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .ai-feature:first-child { grid-column: span 1; grid-template-columns: 1fr; }
+  .ai-feature-grid { grid-template-columns: 1fr; }
+  .vision-layout { grid-template-columns: 1fr; }
+  .vision-quote { position: static; font-size: 32px; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <div class="nav-logo">Ali Jendoubi</div>
+  <ul class="nav-links">
+    <li><a href="#stack">Stack</a></li>
+    <li><a href="#cases">Work</a></li>
+    <li><a href="#pipelines">AI Systems</a></li>
+    <li><a href="#testimonials">Clients</a></li>
+    <li><a href="#vision">Vision</a></li>
+  </ul>
+  <a href="mailto:alijendoubi070@gmail.com" class="nav-cta">Get in touch</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-text">BUILDER</div>
+  <div class="hero-glow-1"></div>
+  <div class="hero-glow-2"></div>
+
+  <div class="hero-grid">
+    <div class="hero-left">
+      <div class="hero-available">
+        <div class="hero-available-dot"></div>
+        Open to co-founding · Messina, Sicily
+      </div>
+      <h1 class="hero-name">
+        <span class="line1">Full-Stack</span><br>
+        <span class="line2">Builder</span><br>
+        <span class="line3">& AI Founder</span>
+      </h1>
+      <p class="hero-desc">I design and ship AI-powered products and automation systems that solve real business problems. 4+ years of building — not consulting, not theorizing. Building.</p>
+      <div class="hero-actions">
+        <a href="#cases" class="btn-primary">View Work</a>
+        <a href="mailto:alijendoubi070@gmail.com" class="btn-ghost">alijendoubi070@gmail.com →</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-stat-row">
+        <div class="hero-stat-num">4+</div>
+        <div class="hero-stat-label">Years building</div>
+      </div>
+      <div class="hero-stat-row">
+        <div class="hero-stat-num">10+</div>
+        <div class="hero-stat-label">Real clients</div>
+      </div>
+      <div class="hero-stat-row">
+        <div class="hero-stat-num">5</div>
+        <div class="hero-stat-label">Products shipped</div>
+      </div>
+      <div class="hero-stat-row">
+        <div class="hero-stat-num">8</div>
+        <div class="hero-stat-label">AI pipelines live</div>
+      </div>
+      <div class="hero-stat-row">
+        <div class="hero-stat-num">3</div>
+        <div class="hero-stat-label">Companies founded</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-track"><div class="scroll-thumb"></div></div>
+    Scroll to explore
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <span class="marquee-item">React <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Next.js 14 <span class="marquee-dot"></span></span>
+    <span class="marquee-item">TypeScript <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Node.js <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Python <span class="marquee-dot"></span></span>
+    <span class="marquee-item">n8n <span class="marquee-dot"></span></span>
+    <span class="marquee-item">OpenAI API <span class="marquee-dot"></span></span>
+    <span class="marquee-item">LangChain <span class="marquee-dot"></span></span>
+    <span class="marquee-item">GoHighLevel <span class="marquee-dot"></span></span>
+    <span class="marquee-item">PostgreSQL <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Docker <span class="marquee-dot"></span></span>
+    <span class="marquee-item">FastAPI <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Laravel <span class="marquee-dot"></span></span>
+    <span class="marquee-item">React Native <span class="marquee-dot"></span></span>
+    <span class="marquee-item">pgvector <span class="marquee-dot"></span></span>
+    <span class="marquee-item">RAG <span class="marquee-dot"></span></span>
+    <span class="marquee-item">React <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Next.js 14 <span class="marquee-dot"></span></span>
+    <span class="marquee-item">TypeScript <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Node.js <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Python <span class="marquee-dot"></span></span>
+    <span class="marquee-item">n8n <span class="marquee-dot"></span></span>
+    <span class="marquee-item">OpenAI API <span class="marquee-dot"></span></span>
+    <span class="marquee-item">LangChain <span class="marquee-dot"></span></span>
+    <span class="marquee-item">GoHighLevel <span class="marquee-dot"></span></span>
+    <span class="marquee-item">PostgreSQL <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Docker <span class="marquee-dot"></span></span>
+    <span class="marquee-item">FastAPI <span class="marquee-dot"></span></span>
+  </div>
+</div>
+
+<!-- STACK -->
+<section id="stack" class="section-wrap dark reveal">
+  <div class="section-eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">01 — Technology</span></div>
+  <h2 class="section-title">Tech Stack</h2>
+  <div class="stack-grid">
+    <div class="stack-cell">
+      <span class="stack-cell-icon">⚛️</span>
+      <div class="stack-cell-name">Frontend</div>
+      <div class="stack-cell-items">React · Next.js 14 · TypeScript · JavaScript ES6+ · Tailwind CSS · SCSS · Framer Motion · WebSocket</div>
+    </div>
+    <div class="stack-cell">
+      <span class="stack-cell-icon">⚙️</span>
+      <div class="stack-cell-name">Backend</div>
+      <div class="stack-cell-items">Node.js · Python · FastAPI · Flask · Laravel · PHP 8 · Express · REST API · JWT · OAuth2</div>
+    </div>
+    <div class="stack-cell">
+      <span class="stack-cell-icon">🤖</span>
+      <div class="stack-cell-name">AI & LLM</div>
+      <div class="stack-cell-items">OpenAI API · LangChain · n8n · Flowise · RAG · pgvector · Prompt Engineering · AI Agents</div>
+    </div>
+    <div class="stack-cell">
+      <span class="stack-cell-icon">🗄️</span>
+      <div class="stack-cell-name">Data</div>
+      <div class="stack-cell-items">PostgreSQL · MySQL · MongoDB · pgvector · Redis · SQL Server · Data modeling · Migrations</div>
+    </div>
+    <div class="stack-cell">
+      <span class="stack-cell-icon">🚀</span>
+      <div class="stack-cell-name">DevOps</div>
+      <div class="stack-cell-items">Docker · Docker Compose · Git · CI/CD · Linux · GitLab · Vercel · VPS deployment</div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDIES -->
+<section id="cases" class="section-wrap darker reveal">
+  <div class="section-eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">02 — Case Studies</span></div>
+  <h2 class="section-title">Selected Work</h2>
+
+  <div class="cases-list">
+
+    <!-- CASE 1 -->
+    <div class="case-row" onclick="toggleCase(this)">
+      <div class="case-trigger">
+        <div class="case-idx">01</div>
+        <div class="case-info">
+          <div class="case-cat">AI Automation · GoHighLevel · n8n</div>
+          <div class="case-name">AutoFlowOS — AI Automation Ecosystem</div>
+        </div>
+        <div class="case-year">2025 — Present</div>
+        <div class="case-tags"><span class="tag">n8n</span><span class="tag">Python</span><span class="tag">OpenAI</span><span class="tag">GHL</span></div>
+        <div class="case-chevron">▼</div>
+      </div>
+      <div class="case-panel">
+        <div class="case-panel-inner">
+          <div class="case-panel-block">
+            <div class="cpb-label">The Problem</div>
+            <div class="cpb-text">European SME group spending 25+ hours per week on manual processes — leads from Google Ads and Meta Ads handled manually, no CRM sync, follow-up messages written by hand, reports compiled in Excel from 5 separate platforms. Zero real ROI visibility per campaign or channel.</div>
+            <div class="cpb-label" style="margin-top:24px">What I Built</div>
+            <div class="cpb-text">Complete AI automation ecosystem: 8 n8n production pipelines connecting GoHighLevel CRM, Google Ads API, Meta Ads API, OpenAI and PostgreSQL. AI lead scoring, personalized follow-ups with quality check loop, daily KPI reports, reputation management, content generation and a LangChain AI agent with Postgres memory queryable via Slack.</div>
+            <div class="cpb-tech">
+              <span class="tech-pill">n8n</span><span class="tech-pill">Python FastAPI</span><span class="tech-pill">OpenAI API</span><span class="tech-pill">LangChain</span><span class="tech-pill">GHL API v2</span><span class="tech-pill">pgvector</span><span class="tech-pill">Docker</span><span class="tech-pill">Google Ads API</span><span class="tech-pill">Meta Ads API</span>
+            </div>
+          </div>
+          <div class="case-panel-block">
+            <div class="cpb-label">Results</div>
+            <div class="cpb-metrics">
+              <div class="cpb-metric"><div class="cpb-metric-val">25h</div><div class="cpb-metric-label">Saved per week</div></div>
+              <div class="cpb-metric"><div class="cpb-metric-val">2min</div><div class="cpb-metric-label">Lead response time</div></div>
+              <div class="cpb-metric"><div class="cpb-metric-val">8</div><div class="cpb-metric-label">Live pipelines</div></div>
+              <div class="cpb-metric"><div class="cpb-metric-val">0</div><div class="cpb-metric-label">Manual reports</div></div>
+            </div>
+          </div>
+          <div class="case-panel-block">
+            <div class="cpb-label">Architecture</div>
+            <div class="cpb-text">4-layer architecture: Data Sources (GHL forms, Ads APIs, webhooks) → Automation Hub (n8n orchestration) → AI Intelligence (Python + OpenAI + LangChain) → Outputs (GHL CRM, Slack, Gmail, dashboards). Every pipeline has error handling, retry logic and Slack alerts on failure. Nothing gets silently lost.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CASE 2 -->
+    <div class="case-row" onclick="toggleCase(this)">
+      <div class="case-trigger">
+        <div class="case-idx">02</div>
+        <div class="case-info">
+          <div class="case-cat">SaaS · Healthcare · Full-Stack</div>
+          <div class="case-name">Auralis — Therapist Workflow SaaS</div>
+        </div>
+        <div class="case-year">2024 — Present</div>
+        <div class="case-tags"><span class="tag">Next.js</span><span class="tag">TypeScript</span><span class="tag">PostgreSQL</span></div>
+        <div class="case-chevron">▼</div>
+      </div>
+      <div class="case-panel">
+        <div class="case-panel-inner">
+          <div class="case-panel-block">
+            <div class="cpb-label">The Problem</div>
+            <div class="cpb-text">Therapy clinics managing appointments via WhatsApp, patient intake on paper, billing in Excel. Therapists spending 40% of their time on administration instead of patients. No patient history tracking, no analytics, no digital paper trail for compliance.</div>
+            <div class="cpb-label" style="margin-top:24px">What I Built</div>
+            <div class="cpb-text">Full-stack SaaS platform: online appointment scheduling with calendar management, digital intake forms completed before arrival, billing and invoice generation, patient history and session notes, analytics dashboard. JWT auth with role-based access for therapists, admin and patients.</div>
+            <div class="cpb-tech">
+              <span class="tech-pill">Next.js 14</span><span class="tech-pill">TypeScript</span><span class="tech-pill">Node.js</span><span class="tech-pill">PostgreSQL</span><span class="tech-pill">JWT</span><span class="tech-pill">REST API</span><span class="tech-pill">CSS Modules</span>
+            </div>
+          </div>
+          <div class="case-panel-block">
+            <div class="cpb-label">Results</div>
+            <div class="cpb-metrics">
+              <div class="cpb-metric"><div class="cpb-metric-val">60%</div><div class="cpb-metric-label">Admin time saved</div></div>
+              <div class="cpb-metric"><div class="cpb-metric-val">3</div><div class="cpb-metric-label">Clinics onboarded</div></div>
+              <div class="cpb-metric"><div class="cpb-metric-val">100%</div><div class="cpb-metric-label">Digital workflow</div></div>
+              <div class="cpb-metric"><div class="cpb-metric-val">0</div><div class="cpb-metric-label">Paper forms</div></div>
+            </div>
+          </div>
+          <div class="case-panel-block">
+            <div class="cpb-label">Key Design Decisions</div>
+            <div class="cpb-text">Patients self-complete intake before arriving — therapists start sessions with full context already loaded. Billing generates invoices automatically from session notes. Analytics shows no-show rates, session lengths and revenue trends. Built mobile-first because therapists check schedules on phone between sessions.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CASE 3 -->
+    <div class="case-row" onclick="toggleCase(this)">
+      <div class="case-trigger">
+        <div class="case-idx">03</div>
+        <div class="case-info">
+          <div class="case-cat">IoT · AgriTech · Real-time · Sicily</div>
+          <div class="case-name">Agritech-Sicily — IoT Agriculture Platform</div>
+        </div>
+        <div class="case-year">2024</div>
+        <div class="case-tags"><span class="tag">Next.js</span><span class="tag">WebSocket</span><span class="tag">Docker</span></div>
+        <div class="case-chevron">▼</div>
+      </div>
+      <div class="case-panel">
+        <div class="case-panel-inner">
+          <div class="case-panel-block">
+            <div class="cpb-label">The Problem</div>
+            <div class="cpb-text">Sicilian agricultural businesses with zero real-time field visibility. Irrigation was scheduled manually based on guesswork — leading to water waste, crop stress and missed intervention windows. Farmers had no way to access field data remotely while working on-site across multiple locations.</div>
+            <div class="cpb-label" style="margin-top:24px">What I Built</div>
+            <div class="cpb-text">Production-ready IoT web platform with real-time data streaming. IoT sensors transmit soil moisture, temperature and humidity via WebSocket. AI-powered irrigation recommendations, live threshold alerts, historical analytics dashboard and mobile-responsive UI for field use.</div>
+            <div class="cpb-tech">
+              <span class="tech-pill">Next.js 14</span><span class="tech-pill">TypeScript</span><span class="tech-pill">WebSocket</span><span class="tech-pill">PostgreSQL</span><span class="tech-pill">Python AI</span><span class="tech-pill">Docker</span><span class="tech-pill">REST API</span>
+            </div>
+          </div>
+          <div class="case-panel-block">
+            <div class="cpb-label">Results</div>
+            <div class="cpb-metrics">
+              <div class="cpb-metric"><div class="cpb-metric-val">Live</div><div class="cpb-metric-label">Field visibility</div></div>
+              <div class="cpb-metric"><div class="cpb-metric-val">AI</div><div class="cpb-metric-label">Irrigation decisions</div></div>
+              <div class="cpb-metric"><div class="cpb-metric-val">Mobile</div><div class="cpb-metric-label">Field access</div></div>
+              <div class="cpb-metric"><div class="cpb-metric-val">Sicily</div><div class="cpb-metric-label">Local deployment</div></div>
+            </div>
+          </div>
+          <div class="case-panel-block">
+            <div class="cpb-label">Southern Italy Context</div>
+            <div class="cpb-text">This project was built specifically for the Sicilian agricultural market — Mediterranean climate patterns, specific crop types and local farming practices informed every design decision. Building for your local market with genuine domain knowledge produces better products than generic solutions.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CASE 4 -->
+    <div class="case-row" onclick="toggleCase(this)">
+      <div class="case-trigger">
+        <div class="case-idx">04</div>
+        <div class="case-info">
+          <div class="case-cat">EdTech · SaaS · AI · Southern Italy</div>
+          <div class="case-name">Invict Academy — International Student Platform</div>
+        </div>
+        <div class="case-year">2024</div>
+        <div class="case-tags"><span class="tag">TypeScript</span><span class="tag">Next.js</span><span class="tag">AI</span></div>
+        <div class="case-chevron">▼</div>
+      </div>
+      <div class="case-panel">
+        <div class="case-panel-inner">
+          <div class="case-panel-block">
+            <div class="cpb-label">The Problem</div>
+            <div class="cpb-text">International students targeting Italian universities (many in Southern Italy) faced a fragmented, confusing process — visa requirements, university applications, document submission, language certifications and housing all separate. High dropout rate from complexity. Advisory services expensive and inconsistent.</div>
+            <div class="cpb-label" style="margin-top:24px">What I Built</div>
+            <div class="cpb-text">End-to-end platform guiding students from application to arrival. AI university matching based on student profile, step-by-step application tracking, document management, visa guidance, housing search and an AI assistant answering questions about Italian universities in Arabic, English and Italian.</div>
+            <div class="cpb-tech">
+              <span class="tech-pill">TypeScript</span><span class="tech-pill">Next.js</span><span class="tech-pill">OpenAI API</span><span class="tech-pill">PostgreSQL</span><span class="tech-pill">Multi-language</span><span class="tech-pill">Mobile-first</span>
+            </div>
+          </div>
+          <div class="case-panel-block">
+            <div class="cpb-label">Results</div>
+            <div class="cpb-metrics">
+              <div class="cpb-metric"><div class="cpb-metric-val">End-to-end</div><div class="cpb-metric-label">Student journey</div></div>
+              <div class="cpb-metric"><div class="cpb-metric-val">3</div><div class="cpb-metric-label">Languages supported</div></div>
+              <div class="cpb-metric"><div class="cpb-metric-val">AI</div><div class="cpb-metric-label">University matching</div></div>
+              <div class="cpb-metric"><div class="cpb-metric-val">South Italy</div><div class="cpb-metric-label">Market focus</div></div>
+            </div>
+          </div>
+          <div class="case-panel-block">
+            <div class="cpb-label">Market Insight</div>
+            <div class="cpb-text">Southern Italy universities — Messina, Catania, Palermo, Reggio Calabria — are significantly less expensive than Milan or Rome but largely unknown internationally. This platform addresses a real market gap: connecting international students to high-quality, affordable Italian universities they wouldn't otherwise discover.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CASE 5 -->
+    <div class="case-row" onclick="toggleCase(this)">
+      <div class="case-trigger">
+        <div class="case-idx">05</div>
+        <div class="case-info">
+          <div class="case-cat">CRM · Business Operations · Italy</div>
+          <div class="case-name">CRM-1.1 — Energy Renovation Management System</div>
+        </div>
+        <div class="case-year">2023 — 2024</div>
+        <div class="case-tags"><span class="tag">PHP 8</span><span class="tag">Laravel</span><span class="tag">MySQL</span></div>
+        <div class="case-chevron">▼</div>
+      </div>
+      <div class="case-panel">
+        <div class="case-panel-inner">
+          <div class="case-panel-block">
+            <div class="cpb-label">The Problem</div>
+            <div class="cpb-text">Italian energy renovation company managing heat pump installations, exterior insulation and Superbonus 110% documentation across WhatsApp groups and spreadsheets. Sales, technical and admin teams had no unified system. Government incentive documentation was manual and error-prone.</div>
+            <div class="cpb-label" style="margin-top:24px">What I Built</div>
+            <div class="cpb-text">Custom CRM built specifically for the sector: full pipeline from lead to installation, technician scheduling and assignment, document management for Superbonus applications, automated client communications, KPI dashboard. Multi-role access for sales, technical and admin teams.</div>
+            <div class="cpb-tech">
+              <span class="tech-pill">PHP 8 OOP</span><span class="tech-pill">Laravel</span><span class="tech-pill">MySQL</span><span class="tech-pill">Bootstrap</span><span class="tech-pill">REST API</span><span class="tech-pill">PDF generation</span><span class="tech-pill">Excel export</span>
+            </div>
+          </div>
+          <div class="case-panel-block">
+            <div class="cpb-label">Results</div>
+            <div class="cpb-metrics">
+              <div class="cpb-metric"><div class="cpb-metric-val">100%</div><div class="cpb-metric-label">Pipeline digitized</div></div>
+              <div class="cpb-metric"><div class="cpb-metric-val">3</div><div class="cpb-metric-label">Teams unified</div></div>
+              <div class="cpb-metric"><div class="cpb-metric-val">Gov</div><div class="cpb-metric-label">Incentive ready</div></div>
+              <div class="cpb-metric"><div class="cpb-metric-val">Custom</div><div class="cpb-metric-label">Sector-built</div></div>
+            </div>
+          </div>
+          <div class="case-panel-block">
+            <div class="cpb-label">Italian Market Knowledge</div>
+            <div class="cpb-text">Understanding Italian government incentive programs (Superbonus, Ecobonus) and the specific documentation requirements was essential to building something actually useful. This is what separates a developer who understands the local market from one who just executes a brief.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CASE 6 -->
+    <div class="case-row" onclick="toggleCase(this)">
+      <div class="case-trigger">
+        <div class="case-idx">06</div>
+        <div class="case-info">
+          <div class="case-cat">FinTech · Real-time · Data</div>
+          <div class="case-name">Trading-News — Live Market Intelligence Platform</div>
+        </div>
+        <div class="case-year">2023</div>
+        <div class="case-tags"><span class="tag">JavaScript</span><span class="tag">REST API</span><span class="tag">Real-time</span></div>
+        <div class="case-chevron">▼</div>
+      </div>
+      <div class="case-panel">
+        <div class="case-panel-inner">
+          <div class="case-panel-block">
+            <div class="cpb-label">The Problem</div>
+            <div class="cpb-text">Traders and financial professionals needed a single platform aggregating live market data, economic calendar events, financial news and trading tools. Existing solutions were either expensive Bloomberg terminals or scattered free resources with no unified interface.</div>
+            <div class="cpb-label" style="margin-top:24px">What I Built</div>
+            <div class="cpb-text">A real-time web platform for traders: live market data feeds via multiple financial APIs, interactive economic calendar with impact ratings, financial news aggregation from multiple sources, currency pair tools and market session indicators. Built for speed — updates without page refresh.</div>
+            <div class="cpb-tech">
+              <span class="tech-pill">JavaScript ES6+</span><span class="tech-pill">HTML5</span><span class="tech-pill">CSS3</span><span class="tech-pill">REST API</span><span class="tech-pill">WebSocket</span><span class="tech-pill">Financial APIs</span>
+            </div>
+          </div>
+          <div class="case-panel-block">
+            <div class="cpb-label">Results</div>
+            <div class="cpb-metrics">
+              <div class="cpb-metric"><div class="cpb-metric-val">Live</div><div class="cpb-metric-label">Market data</div></div>
+              <div class="cpb-metric"><div class="cpb-metric-val">Multi-source</div><div class="cpb-metric-label">News aggregation</div></div>
+              <div class="cpb-metric"><div class="cpb-metric-val">Real-time</div><div class="cpb-metric-label">Calendar events</div></div>
+              <div class="cpb-metric"><div class="cpb-metric-val">Free</div><div class="cpb-metric-label">vs Bloomberg</div></div>
+            </div>
+          </div>
+          <div class="case-panel-block">
+            <div class="cpb-label">Technical Approach</div>
+            <div class="cpb-text">Multiple financial data APIs unified behind a single normalized data layer. WebSocket connections for tick-level price updates without polling. Economic calendar parsed and enriched with historical impact data. Designed to work on mobile for traders away from their desk — responsive and fast-loading.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PIPELINES / AI SYSTEMS -->
+<section id="pipelines" class="section-wrap dark reveal">
+  <div class="section-eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">03 — Live AI Systems</span></div>
+  <h2 class="section-title">8 Pipelines.<br>All Live.</h2>
+
+  <div class="pipeline-showcase">
+    <div class="pipeline-card">
+      <div class="pipeline-card-header">
+        <div class="pipeline-card-title">Pipeline 1 — Lead Capture & AI Scoring</div>
+        <div class="pipeline-status"><div class="pipeline-status-dot"></div>Live</div>
+      </div>
+      <div class="pipeline-flow">
+        <span class="flow-node trigger">GHL Webhook</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node">Extract Fields</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node ai">AI Score</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node">GHL Update</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node output">Slack Alert</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node output">SMS Send</span>
+      </div>
+      <div class="pipeline-footer">
+        <span>Lead scored and routed in under 2 minutes</span>
+        <span class="pipeline-metric">< 2min</span>
+      </div>
+    </div>
+
+    <div class="pipeline-card">
+      <div class="pipeline-card-header">
+        <div class="pipeline-card-title">Pipeline 7 — LangChain AI Agent</div>
+        <div class="pipeline-status"><div class="pipeline-status-dot"></div>Live</div>
+      </div>
+      <div class="pipeline-flow">
+        <span class="flow-node trigger">Slack Query</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node">Extract Intent</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node ai">AI Agent</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node">GHL Tool</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node ai">Generate Reply</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node output">Slack Reply</span>
+      </div>
+      <div class="pipeline-footer">
+        <span>Postgres memory · 3 GHL tools · ReAct agent</span>
+        <span class="pipeline-metric">RAG Ready</span>
+      </div>
+    </div>
+
+    <div class="pipeline-card">
+      <div class="pipeline-card-header">
+        <div class="pipeline-card-title">Pipeline 3 — AI Follow-Up Sequences</div>
+        <div class="pipeline-status"><div class="pipeline-status-dot"></div>Live</div>
+      </div>
+      <div class="pipeline-flow">
+        <span class="flow-node trigger">GHL Update</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node">Get History</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node ai">OpenAI Generate</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node ai">Quality Check</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node">If Approved</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node output">GHL Send</span>
+      </div>
+      <div class="pipeline-footer">
+        <span>No static templates. Every message AI-generated.</span>
+        <span class="pipeline-metric">100% Dynamic</span>
+      </div>
+    </div>
+
+    <div class="pipeline-card">
+      <div class="pipeline-card-header">
+        <div class="pipeline-card-title">Pipeline 6 — KPI Dashboard & Reporting</div>
+        <div class="pipeline-status"><div class="pipeline-status-dot"></div>Live</div>
+      </div>
+      <div class="pipeline-flow">
+        <span class="flow-node trigger">Monday 8am</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node">GHL Pull</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node">Ads Pull</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node ai">AI Summary</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node">HTML Report</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node output">Email + Slack</span>
+      </div>
+      <div class="pipeline-footer">
+        <span>5 data sources · AI executive summary · zero manual work</span>
+        <span class="pipeline-metric">0 manual</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="all-pipelines-strip">
+    <div class="strip-item"><span class="strip-num">P1</span><span class="strip-name">Lead Capture & AI Scoring</span></div>
+    <div class="strip-item"><span class="strip-num">P2</span><span class="strip-name">Google + Meta Ads Daily Sync</span></div>
+    <div class="strip-item"><span class="strip-num">P3</span><span class="strip-name">AI Follow-Up Sequences</span></div>
+    <div class="strip-item"><span class="strip-num">P4</span><span class="strip-name">Reputation & Review Automation</span></div>
+    <div class="strip-item"><span class="strip-num">P5</span><span class="strip-name">AI Content Generation</span></div>
+    <div class="strip-item"><span class="strip-num">P6</span><span class="strip-name">KPI Dashboard & Reporting</span></div>
+    <div class="strip-item"><span class="strip-num">P7</span><span class="strip-name">LangChain Operational Agent</span></div>
+    <div class="strip-item"><span class="strip-num">P8</span><span class="strip-name">Lead Reactivation Campaigns</span></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials" class="section-wrap darker reveal">
+  <div class="section-eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">04 — Client Feedback</span></div>
+  <h2 class="section-title">What Clients Say</h2>
+
+  <div class="testimonials-grid">
+    <div class="testimonial-card">
+      <div class="testimonial-stars">
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+      </div>
+      <div class="testimonial-text">"Ali built our entire automation system from scratch — leads from our ad campaigns now get scored and followed up automatically within 2 minutes. We went from 15 hours of manual work per week to zero. The system just runs."</div>
+      <div class="testimonial-author">
+        <div class="author-avatar">MR</div>
+        <div>
+          <div class="author-name">Marco R.</div>
+          <div class="author-role">CEO · Digital Marketing Agency, Italy</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="testimonial-stars">
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+      </div>
+      <div class="testimonial-text">"What impressed me most was that Ali understood the business problem before touching the keyboard. The platform he built for our clinic didn't just digitize our process — it improved it. Patients actually prefer the new experience."</div>
+      <div class="testimonial-author">
+        <div class="author-avatar">SF</div>
+        <div>
+          <div class="author-name">Sara F.</div>
+          <div class="author-role">Clinical Director · Auralis Healthcare</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="testimonial-stars">
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+      </div>
+      <div class="testimonial-text">"We needed someone who could work autonomously from day one. Ali delivered the first working automation in week one — before we'd even finalized the full scope. That pace and initiative is rare."</div>
+      <div class="testimonial-author">
+        <div class="author-avatar">LP</div>
+        <div>
+          <div class="author-name">Luca P.</div>
+          <div class="author-role">Founder · PropTech Startup, Milan</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="testimonial-stars">
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+      </div>
+      <div class="testimonial-text">"The CRM Ali built understands our sector — the Superbonus documentation workflow, the installation scheduling, the client communication sequences. It's not a generic tool. It was built by someone who took the time to understand what we actually do."</div>
+      <div class="testimonial-author">
+        <div class="author-avatar">GT</div>
+        <div>
+          <div class="author-name">Giuseppe T.</div>
+          <div class="author-role">Operations Director · Energy Renovation Co.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="testimonial-stars">
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+      </div>
+      <div class="testimonial-text">"Ali integrated our GoHighLevel CRM with our Google and Meta ad accounts in a way that finally shows us our real cost per acquisition — not just cost per lead. That visibility changed how we allocate our ad budget."</div>
+      <div class="testimonial-author">
+        <div class="author-avatar">AC</div>
+        <div>
+          <div class="author-name">Andrea C.</div>
+          <div class="author-role">Marketing Director · eCommerce Group</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="testimonial-stars">
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+      </div>
+      <div class="testimonial-text">"Working with Ali felt different from working with a contractor. He asked questions I hadn't thought to ask, pushed back on requirements that didn't make sense, and delivered something better than what I'd originally spec'd."</div>
+      <div class="testimonial-author">
+        <div class="author-avatar">BM</div>
+        <div>
+          <div class="author-name">Bassem M.</div>
+          <div class="author-role">Co-Founder · PeakPulse Solutions, Dubai</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI DEEP DIVE -->
+<section class="section-wrap dark reveal">
+  <div class="section-eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">05 — AI Capability</span></div>
+  <h2 class="section-title">AI Depth</h2>
+
+  <div class="ai-feature-grid">
+    <div class="ai-feature">
+      <div class="ai-big-statement">
+        I don't just<br>
+        <em>use</em> AI —<br>
+        I build with it,<br>
+        every day.
+      </div>
+      <div class="ai-tools-list">
+        <div class="ai-tool">
+          <div class="ai-tool-name">Cursor</div>
+          <div class="ai-tool-desc">Primary editor — AI-native coding, inline generation, codebase chat</div>
+        </div>
+        <div class="ai-tool">
+          <div class="ai-tool-name">Claude</div>
+          <div class="ai-tool-desc">Architecture decisions, debugging complex problems, code review</div>
+        </div>
+        <div class="ai-tool">
+          <div class="ai-tool-name">OpenAI API</div>
+          <div class="ai-tool-desc">Integrated in 3+ production products — not just experimentation</div>
+        </div>
+        <div class="ai-tool">
+          <div class="ai-tool-name">LangChain</div>
+          <div class="ai-tool-desc">Agents with tool use, memory, RAG — deployed as FastAPI services</div>
+        </div>
+        <div class="ai-tool">
+          <div class="ai-tool-name">n8n + AI</div>
+          <div class="ai-tool-desc">8 production pipelines combining automation and LLM calls</div>
+        </div>
+      </div>
+    </div>
+    <div class="ai-feature">
+      <div class="ai-feature-num">02</div>
+      <div class="ai-feature-title">LLM Product Features</div>
+      <div class="ai-feature-text">OpenAI API integrated into real products generating measurable value — not demos. Lead scoring, content generation, quality check loops, data analysis, personalized messaging. Every call has a business purpose and measurable output.</div>
+    </div>
+    <div class="ai-feature">
+      <div class="ai-feature-num">03</div>
+      <div class="ai-feature-title">AI Agents with Memory</div>
+      <div class="ai-feature-text">LangChain agents with tool use and persistent Postgres memory. Agents that query CRM data, pull advertising performance, take actions in external systems — not chatbots. Production-deployed via FastAPI, integrated with Slack via n8n.</div>
+    </div>
+    <div class="ai-feature">
+      <div class="ai-feature-num">04</div>
+      <div class="ai-feature-title">RAG & Knowledge Systems</div>
+      <div class="ai-feature-text">pgvector on PostgreSQL for semantic search and retrieval-augmented generation. Documents chunked, embedded with text-embedding-3-small, stored with HNSW index. AI that answers from your actual company data, not hallucinated training knowledge.</div>
+    </div>
+  </div>
+</section>
+
+<!-- VISION -->
+<section id="vision" class="section-wrap darker reveal">
+  <div class="section-eyebrow"><div class="eyebrow-line"></div><span class="eyebrow-text">06 — Why Co-Found</span></div>
+  <h2 class="section-title">What I Bring<br>to DesignForward</h2>
+
+  <div class="vision-layout">
+    <div class="vision-quote">
+      Southern Italy is an <em>underserved market</em> for design-led digital innovation. The opportunity to build something <em>real here</em> is rare — and I'm already here.
+    </div>
+    <div class="vision-points">
+      <div class="vision-point">
+        <span class="vp-num">01</span>
+        <div>
+          <div class="vp-title">Technical AI depth most business co-founders don't have</div>
+          <div class="vp-text">I can design, build and ship AI-powered products — not just advise on them. When DesignForward wins a project involving AI implementation, I can deliver it. That's the difference between a studio that talks about AI and one that actually builds with it.</div>
+        </div>
+      </div>
+      <div class="vision-point">
+        <span class="vp-num">02</span>
+        <div>
+          <div class="vp-title">Based in Messina — genuinely rooted in Southern Italy</div>
+          <div class="vp-text">I've been living and building here, not parachuting in from Milan. I understand the market, the pace, the business culture and the real digital gaps that exist in Southern Italian businesses. That local knowledge creates better products.</div>
+        </div>
+      </div>
+      <div class="vision-point">
+        <span class="vp-num">03</span>
+        <div>
+          <div class="vp-title">Client acquisition and delivery experience as a founder</div>
+          <div class="vp-text">I've found clients, pitched, closed deals, delivered products and managed relationships — all without the support structure of a company behind me. I know what co-founding requires operationally because I've been doing it solo.</div>
+        </div>
+      </div>
+      <div class="vision-point">
+        <span class="vp-num">04</span>
+        <div>
+          <div class="vp-title">I ship — not just strategize</div>
+          <div class="vp-text">Every case study in this portfolio is something I built, tested and deployed. The AutoFlowOS pipelines are running live right now, serving real clients. DesignForward needs a co-founder who produces, not just plans. That's what I do.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="contact-section">
+  <div class="contact-glow"></div>
+  <div class="contact-inner">
+    <h2 class="contact-title">Let's<br><span class="italic">build</span><br>together.</h2>
+    <div class="contact-links">
+      <a href="mailto:alijendoubi070@gmail.com" class="contact-link">
+        <span class="contact-link-label">Email</span>
+        <span class="contact-link-value">alijendoubi070@gmail.com</span>
+      </a>
+      <a href="tel:+393513044193" class="contact-link">
+        <span class="contact-link-label">Phone</span>
+        <span class="contact-link-value">+39 351 304 4193</span>
+      </a>
+      <a href="https://github.com/alijendoubi" class="contact-link">
+        <span class="contact-link-label">GitHub</span>
+        <span class="contact-link-value">github.com/alijendoubi</span>
+      </a>
+      <a href="https://linkedin.com/in/ali-jendoubi-ab66b2213" class="contact-link">
+        <span class="contact-link-label">LinkedIn</span>
+        <span class="contact-link-value">ali-jendoubi-ab66b2213</span>
+      </a>
+    </div>
+    <div class="contact-location">📍 Messina, Sicily — Available for co-founding and collaboration</div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">Ali Jendoubi</div>
+  <div class="footer-copy">Built with intention · Messina, Sicily · 2026</div>
+</footer>
+
+<script>
+// Custom cursor
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px';
+  cursor.style.top = my + 'px';
+});
+
+function animateRing() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px';
+  ring.style.top = ry + 'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+
+document.querySelectorAll('a, button, .case-row, .stack-cell').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.style.transform = 'translate(-50%,-50%) scale(2)';
+    ring.style.width = '60px';
+    ring.style.height = '60px';
+    ring.style.borderColor = 'rgba(200,255,0,0.6)';
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor.style.transform = 'translate(-50%,-50%) scale(1)';
+    ring.style.width = '36px';
+    ring.style.height = '36px';
+    ring.style.borderColor = 'rgba(200,255,0,0.4)';
+  });
+});
+
+// Case study toggle
+function toggleCase(row) {
+  const isActive = row.classList.contains('active');
+  document.querySelectorAll('.case-row.active').forEach(r => r.classList.remove('active'));
+  if (!isActive) row.classList.add('active');
+}
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.reveal, .testimonial-card, .pipeline-card, .stack-cell, .ai-feature, .vision-point').forEach(el => {
+  el.classList.add('reveal');
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
